@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Stirling Engineering</title>
+    <meta http-equiv="refresh" content="0; url=index.html#projects">
+    <style>
+        body {
+            background-color: #00687b;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .nav {
+            width: 100%;
+            padding: 15px 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .project {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            color: white;
+            width: 400px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            vertical-align: top;
+            text-align: left;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .project h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .project p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .project img:hover {
+            transform: none;
+        }
+
+        .project-wrapper {
+            position: relative;
+        }
+
+        .project-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .project-images {
+            flex: 1;
+        }
+
+        .project-images img:first-child {
+            width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .project-images img:not(:first-child) {
+            display: none;
+        }
+
+        .project-details {
+            margin-top: 20px;
+        }
+
+        .tech-stack {
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project:nth-child(1) { animation-delay: 0.2s; }
+        .project:nth-child(2) { animation-delay: 0.4s; }
+        .project:nth-child(3) { animation-delay: 0.6s; }
+        .project:nth-child(4) { animation-delay: 0.8s; }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 900px) {
+            .project {
+                width: calc(100% - 40px);
+                max-width: 400px;
+                margin: 20px auto;
+                display: block;
+            }
+
+            .project-content {
+                flex-direction: column;
+            }
+
+            .project-images {
+                order: -1; /* Makes images appear above text on mobile */
+            }
+
+            .project h2 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav ul {
+                gap: 20px;
+                flex-wrap: wrap;
+                padding: 0 10px;
+            }
+
+            .nav a {
+                font-size: 0.9em;
+            }
+
+            .projects-container {
+                padding: 10px;
+            }
+
+            .project {
+                padding: 20px;
+                margin: 20px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav ul {
+                gap: 15px;
+            }
+
+            .project h2 {
+                font-size: 1.8em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .project p {
+                font-size: 1em;
+            }
+        }
+
+        /* Add these styles before the @keyframes fadeIn */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .modal-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90vh;
+            z-index: 1001;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <p>Redirecting to <a href="index.html#projects">projects section</a>...</p>
+</body>
+</html> 

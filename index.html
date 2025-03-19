@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stirling Engineering</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'ITC Magnifico Daytime';
+            src: url('Magnifico Daytime Regular.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body {
+            background-color: #00687b;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            scroll-behavior: smooth; /* Enable smooth scrolling */
+        }
+
+        .nav {
+            width: 100%;
+            padding: 15px 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: fixed; /* Make nav stick to top */
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            border: 2px solid white;
+            font-weight: bold;
+            font-size: 1.2em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::after {
+            content: ' →';
+            opacity: 0;
+            margin-left: -10px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover::after {
+            opacity: 1;
+            margin-left: 10px;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        /* Copy over the projects styles from your existing projects.html */
+        .projects-section {
+            padding-top: 20px;
+            min-height: auto;
+        }
+
+        /* Project styles */
+        .projects-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .project {
+            margin: 0;
+            flex-basis: calc(50% - 30px);
+            min-width: 300px;
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            opacity: 1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            text-align: left;
+        }
+
+        .project:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .project h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .project p {
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .project img {
+            width: 100%;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .project img:hover {
+            transform: none;
+        }
+
+        .project-wrapper {
+            position: relative;
+        }
+
+        .project-link {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            border: none;
+            background: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .project-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .project-images {
+            flex: 1;
+        }
+
+        .project-images img:first-child {
+            width: 100%;
+            height: auto;
+            max-height: 250px;
+            object-fit: contain;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .project-images img:not(:first-child) {
+            display: none;
+        }
+
+        .project-images img {
+            z-index: 2;
+            position: relative;
+        }
+
+        .project-details {
+            margin-top: 20px;
+        }
+
+        .tech-stack {
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .modal-image {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90vh;
+            z-index: 1001;
+            animation: zoomIn 0.3s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            to {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 40px;
+        }
+        input {
+            color: white;
+            font-weight: bold;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 2px solid white;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .big-s {
+            color: white;
+            font-size: 12em;
+            font-family: 'ITC Magnifico Daytime', sans-serif;
+            margin: 0;
+            line-height: 0.8;
+            animation: slideInFromRight 1.5s ease-out;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        h1 {
+            color: white;
+            font-size: 3.5em;
+            margin: 0;
+            padding-top: 20px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            animation: slideInFromLeft 1.5s ease-out;
+            opacity: 0;
+            animation-fill-mode: forwards;
+            animation-delay: 0.3s;
+            margin-bottom: 10px;
+        }
+
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .nav ul {
+                gap: 20px;
+                flex-wrap: wrap;
+                padding: 0 10px;
+            }
+
+            .nav a {
+                font-size: 0.9em;
+            }
+
+            .big-s {
+                font-size: 8em;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                padding: 0 20px;
+            }
+
+            .cta-button {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+
+            .main-content {
+                padding-top: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav ul {
+                gap: 15px;
+            }
+
+            .big-s {
+                font-size: 6em;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* Update scroll offset for fixed header */
+        html {
+            scroll-padding-top: 70px;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0.8;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project:nth-child(1) { animation: fadeIn 0.3s ease-out forwards; }
+        .project:nth-child(2) { animation: fadeIn 0.3s ease-out 0.1s forwards; }
+        .project:nth-child(3) { animation: fadeIn 0.3s ease-out 0.2s forwards; }
+        .project:nth-child(4) { animation: fadeIn 0.3s ease-out 0.3s forwards; }
+
+        /* Add this to your CSS */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 1000;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <ul>
+            <li><a href="#top">HOME</a></li>
+            <li><a href="coming-soon.html">ABOUT ME</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <h1>Stirling Engineering</h1>
+        <p>Innovative Solutions, Precision Engineering</p>
+        <a href="#projects" class="cta-button">Go to Projects</a>
+    </div>
+
+    <div id="projects" class="projects-section">
+        <div class="projects-container">
+            <div class="project">
+                <a href="mariana.html" class="project-link"></a>
+                <h2>Mariana</h2>
+                <p class="subtitle">2025 FRC Robot - Team 6995</p>
+                <div class="project-content">
+                    <div class="project-images">
+                        <img src="mariana-main.png" alt="Mariana Robot - Main View" onerror="this.src='https://via.placeholder.com/400x300?text=Add+Robot+Image'">
+                    </div>
+                    <div class="project-text">
+                        <div class="project-details">
+                            <p>The 2025 competition robot for FIRST Robotics Competition Team 6995.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project">
+                <a href="differential-wrist.html" class="project-link"></a>
+                <h2>Differential Wrist</h2>
+                <div class="project-content">
+                    <div class="project-images">
+                        <img src="wrist-main.png" alt="Differential Wrist - Main View" onerror="this.src='https://via.placeholder.com/400x300?text=Add+Wrist+Image'">
+                    </div>
+                    <div class="project-text">
+                        <div class="project-details">
+                            <p>A sophisticated mechanical engineering project focusing on differential wrist mechanism.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project">
+                <a href="capstan-pivot.html" class="project-link"></a>
+                <h2>Capstan Pivot</h2>
+                <div class="project-content">
+                    <div class="project-images">
+                        <img src="capstan-main.png" alt="Capstan Pivot - Main View" onerror="this.src='https://via.placeholder.com/400x300?text=Coming+Soon'">
+                    </div>
+                    <div class="project-text">
+                        <div class="project-details">
+                            <p>An innovative mechanical design project exploring capstan drive mechanisms.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project">
+                <a href="website-changelog.html" class="project-link"></a>
+                <h2>Website Changelog</h2>
+                <div class="project-content">
+                    <div class="project-images">
+                        <img src="website-main.png" alt="Website Changelog - Main View" onerror="this.src='https://via.placeholder.com/400x300?text=Coming+Soon'">
+                    </div>
+                    <div class="project-text">
+                        <div class="project-details">
+                            <p>Development history and technical documentation of this portfolio website.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="imageModal">
+        <img class="modal-image" id="modalImage">
+    </div>
+
+    <!-- Add this button -->
+    <a href="#top" class="back-to-top" id="backToTop">↑ Back to Top</a>
+
+    <script>
+        // Smooth scroll functionality
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add this for back to top button visibility
+        const backToTop = document.getElementById('backToTop');
+        const projectsSection = document.getElementById('projects');
+
+        window.addEventListener('scroll', () => {
+            const projectsRect = projectsSection.getBoundingClientRect();
+            if (projectsRect.top < 0) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        
+        document.querySelectorAll('.project-images img').forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+            });
+        });
+
+        modal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+    </script>
+</body>
+</html> 
